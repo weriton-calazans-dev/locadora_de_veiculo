@@ -27,11 +27,6 @@ public class GerenciadorDeAlugueis {
         return horas * precoVan;
     }
 
-    @Override
-    public String toString() {
-        return  super.toString();
-    }
-
     public double getPrecoCaminhao() {
         return precoCaminhao;
     }
