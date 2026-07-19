@@ -1,7 +1,7 @@
 package ContratosInterface;
 
 public interface Contratos {
-    public String toString();
-
-
+    public double calcularCustoManutencao();
+    public double precoPorHoras(double horas);
+    public void preco(int eixos);
 }

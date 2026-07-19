@@ -1,8 +1,6 @@
 package EmpresaLocadoraVeiculos;
 
-import Adimistrador.Caminha;
-import Adimistrador.GerenciadorDeAlugueis;
-import Adimistrador.Van;
+import Adminstrador.*;
 
 import java.util.Locale;
 import java.util.Scanner;
@@ -10,101 +8,101 @@ import java.util.Scanner;
 public class Main {
     static void main(String[] args) {
         Locale.setDefault(Locale.US);
-        Scanner imput = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
 
-        Caminha[] caminhas = new Caminha[3];
-        caminhas[0] = new Caminha(8000.00,"ASD-4444","Caminhão",4);
-        caminhas[1] = new Caminha(6000.00,"QWE-3333","Caminhão",3);
-        caminhas[2] = new Caminha(4000.00,"ZXC-2222","Caminhão",2);
-
-        Van[] vans = new Van[3];
-        vans[0] = new Van(14,"ASD-1515","Van",true);
-        vans[1] = new Van(13,"ASD-1313","Van",true);
-        vans[2] = new Van(10,"ZXC-1010","Van",false);
+        Veiculo[] veiculos = new Veiculo[6];
+        veiculos[0] = new Caminhao(8000.00, "ASD-4444", "Caminhão", 4);
+        veiculos[1] = new Caminhao(6000.00, "QWE-3333", "Caminhão", 3);
+        veiculos[2] = new Caminhao(4000.00, "ZXC-2222", "Caminhão", 2);
+        veiculos[3] = new Van(14, "ASD-1515", "Van", true);
+        veiculos[4] = new Van(13, "ASD-1313", "Van", true);
+        veiculos[5] = new Van(10, "ZXC-1010", "Van", false);
 
         System.out.println("*******************************************************");
         System.out.println("******** Bem-Vindo! A locadora de veículos ************");
-        char validacao = 'N';
+
         int escolha;
         double horas;
-        GerenciadorDeAlugueis gerenciadorDeAlugueis = new GerenciadorDeAlugueis();
+        ServicoManutencao servicoManutencao = new ServicoManutencao();
 
-        do {
-            System.out.println("*******************************************************");
-            System.out.println();
-            System.out.println("***** Qual categoria do veiculo gostaria de alugar *****");
-            System.out.println("1- Caminhão:");
-            System.out.println("2- Van de passeio:");
-            int categoria = imput.nextInt();
+        System.out.println("*******************************************************");
+        System.out.println();
+        System.out.println("***** Qual categoria do veiculo gostaria de alugar *****");
+        System.out.println("1- Caminhão:");
+        System.out.println("2- Van de passeio:");
+        int categoria = input.nextInt();
+        int contadora = 1;
 
-            switch(categoria){
-                case 1:
-                    for (int i = 0; i < caminhas.length; i++) {
-                        System.out.println("*******************************************************");
-                        System.out.println("***** "+ (i + 1) + "-" + caminhas[i].getVeiculo() + " *****");
-                        System.out.println("***** Quantidade de eixos: " + caminhas[i].getQuantidadeDeEixos());
-                        System.out.println("***** Capacidade de Kg: " + String.format("%.2f", caminhas[i].getCapacidadeCarga()));
-                    }
-                    System.out.println();
-                    System.out.println("*********************************************************************************");
-                    System.out.println("***** Qual destes caminhão seria suficiente para transporta sua carga hoje? *****");
-                    System.out.println("***** Digite a numeração referent ao caminhão  *(ex: 1 )* *****");
-                    escolha = imput.nextInt();
-                    escolha -= 1;
-                    System.out.println(caminhas[escolha].toString());
-                    gerenciadorDeAlugueis.preco(escolha);
-                    System.out.println("Preço por horas: R$ " + String.format("%.2f",gerenciadorDeAlugueis.getPrecoCaminhao()));
-                    System.out.println();
-                    System.out.println("**************************************************");
-                    System.out.println("Quantas horas precisaria para o seu serviço? ");
-                    horas = imput.nextDouble();
-                    System.out.println("**************************************************");
-                    System.out.println();
-                    System.out.println("************* Contrato do aluguel ****************");
-                    System.out.println(caminhas[escolha].toString());
-                    System.out.println("Tempo de locação: " + String.format("%.2f", horas) + " horas");
-                    System.out.println("Preço por horas: R$ " + String.format("%.2f",gerenciadorDeAlugueis.getPrecoCaminhao()));
-                    System.out.println("Valor total do  aluguel: R$" + String.format("%.2f",gerenciadorDeAlugueis.precoPorHorasCaminhas(horas)));
-                    System.out.println("***************************************************");
-                    validacao = 'N';
-                    break;
-                case 2:
-                     for (int i = 0; i < vans.length; i++) {
-                        System.out.println("*******************************************************");
-                        System.out.println("***** " + (i + 1) + "-" + vans[i].getVeiculo() + " *****");
-                        System.out.println("***** Quantidade de acentos: " + vans[i].getCapacidaDePessoa() );
-                         System.out.println("**** Ar-condicionado: " + vans[i].isPossuiRefrigeracao());
-                    }
-                    System.out.println();
-                    System.out.println("******************************************************************");
-                    System.out.println("***** Qual destas van seria suficiente para sua viajem hoje? *****");
-                    System.out.println("***** Digite a numeração referent ao caminhão  *(ex: 1 )* *****");
-                    escolha = imput.nextInt();
-                    escolha -= 1;
-                    System.out.println(vans[escolha].toString());
-                    gerenciadorDeAlugueis.preco(vans[escolha].getCapacidaDePessoa());
-                    System.out.println("Preço por horas: R$ " + String.format("%.2f",gerenciadorDeAlugueis.getPrecoVan()));
-                    System.out.println();
-                    System.out.println("**************************************************");
-                    System.out.println("Quantas horas precisaria para o sua viajem? ");
-                    horas = imput.nextDouble();
-                    System.out.println("**************************************************");
-                    System.out.println();
-                    System.out.println("************* Contrato do aluguel ****************");
-                    System.out.println(vans[escolha].toString());
-                    System.out.println("Tempo de locação: " + String.format("%.2f", horas) + " horas");
-                    System.out.println("Preço por horas: R$ " + String.format("%.2f",gerenciadorDeAlugueis.getPrecoVan()));
-                    System.out.println("Valor total do aluguel: R$" + String.format("%.2f",gerenciadorDeAlugueis.precoPorHorasVan(horas)));
-                    System.out.println("**************************************************");
-                    validacao = 'N';
-                    break;
-                default:
-                    System.out.println("***** Erro! Opção invalida. *****");
-                    validacao = 'S';
+        for (int i = 0; i < veiculos.length; i++) {
+            if (categoria != 1 && categoria != 2) {
+                System.out.println("***** Erro! Opção invalida. *****");
             }
+            if (categoria == 1 && veiculos[i] instanceof Caminhao caminhao) {
+                System.out.println("*******************************************************");
+                System.out.println("***** " + contadora + "-" + caminhao.getVeiculo() + " *****");
+                System.out.println("***** Quantidade de eixos: " + caminhao.getQuantidadeDeEixos());
+                System.out.println("***** Capacidade de Kg: " + String.format("%.2f", caminhao.getCapacidadeCarga()));
+                contadora++;
+            }
+            if (categoria == 2 && veiculos[i] instanceof Van van) {
+                System.out.println("*******************************************************");
+                System.out.println("***** " + contadora + "-" + van.getVeiculo() + " *****");
+                System.out.println("***** Quantidade de assentos: " + van.getCapacidaDePessoa());
+                System.out.println("**** Ar-condicionado: " + van.isPossuiRefrigeracao());
+                contadora ++;
+            }
+        }
 
-        } while (validacao == 'S');
+        System.out.println();
+        System.out.println("*********************************************************************************");
+        System.out.println("***** Qual destes veículos atenderia sua necessidade hoje? *****");
+        System.out.println("***** Digite a numeração referent ao veiculo desejado  *(ex: 1 )* *****");
+        escolha = input.nextInt();
+        int correspondencia = 1;
+        Veiculo veiculoEscolhido = null;
+        for (int i = 0; i < veiculos.length; i++) {
+            if(categoria == 1 && veiculos[i] instanceof Caminhao){
+                if(correspondencia == escolha){
+                    veiculoEscolhido = veiculos[i];
+                    break;
+                }
+                correspondencia ++;
+            }
+            if (categoria == 2 && veiculos[i] instanceof Van){
+                if(correspondencia == escolha){
+                    veiculoEscolhido = veiculos[i];
+                    break;
+                }
+                correspondencia ++;
+            }
+        }
 
-        imput.close();
+        System.out.println(veiculoEscolhido.toString());
+        double preco = 0;
+        if (veiculoEscolhido instanceof Caminhao caminhao){
+            veiculoEscolhido.preco(caminhao.getQuantidadeDeEixos());
+            preco = caminhao.getPrecoCaminhao();
+        }
+        if (veiculoEscolhido instanceof Van van){
+            preco = van.getPrecoVan();
+            veiculoEscolhido.preco(van.getCapacidaDePessoa());
+        }
+        System.out.println("Preço por horas: R$ " + String.format("%.2f", preco));
+        System.out.println();
+        System.out.println("**************************************************");
+        System.out.println("Quantas horas precisaria para o seu serviço? ");
+        horas = input.nextDouble();
+        System.out.println("**************************************************");
+        System.out.println();
+        System.out.println("************* Contrato do aluguel ****************");
+        System.out.println(veiculoEscolhido.toString());
+        System.out.println("Tempo de locação: " + String.format("%.2f", horas) + " horas");
+        System.out.println("Preço por horas: R$ " + String.format("%.2f", preco));
+        System.out.println("Valor total do  aluguel: R$" + String.format("%.2f", veiculoEscolhido.precoPorHoras(horas)));
+        System.out.println("******************************************************************");
+        System.out.printf("***** O custo total da manutenção deste aluguel sera: %.2f *****%n",servicoManutencao.calcularCustoManutencao(horas, veiculoEscolhido.calcularCustoManutencao()));
+        System.out.println("******************************************************************");
+
+        input.close();
     }
 }

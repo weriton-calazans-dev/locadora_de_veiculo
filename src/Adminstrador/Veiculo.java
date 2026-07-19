@@ -1,12 +1,10 @@
-package Adimistrador;
+package Adminstrador;
 
 import ContratosInterface.Contratos;
 
 public abstract class Veiculo implements Contratos {
     private String veiculo;
     private String placa;
-
-
 
     public Veiculo() {
     }
@@ -21,6 +19,10 @@ public abstract class Veiculo implements Contratos {
         return "Veiculo: " + veiculo + '\n' +
                 "Placa: " + placa ;
     }
+
+    @Override
+    public abstract double calcularCustoManutencao();
+
 
     public String getVeiculo() {
         return veiculo;
